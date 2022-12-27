@@ -1,18 +1,19 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:icarus_editor/services/icarus_character.dart';
+import 'package:icarus_editor/widgets/profile/profile_overview.dart';
 
-import '../pages/character_page.dart';
+import '../services/icarus_character.dart';
+import 'character/character_overview.dart';
 
-class CharacterList extends StatefulWidget {
+class EditorNavigation extends StatefulWidget {
   final List<IcarusCharacter> characters;
 
-  const CharacterList({super.key, required this.characters});
+  const EditorNavigation({super.key, required this.characters});
 
   @override
-  State<CharacterList> createState() => _CharacterListState();
+  State<EditorNavigation> createState() => _EditorNavigationState();
 }
 
-class _CharacterListState extends State<CharacterList> {
+class _EditorNavigationState extends State<EditorNavigation> {
   int _activeCharacter = 0;
 
   @override
@@ -31,8 +32,15 @@ class _CharacterListState extends State<CharacterList> {
             PaneItem(
               icon: const Icon(FluentIcons.accounts),
               title: Text('${character.name} (${character.xp} XP)'),
-              body: CharacterPage(character: character),
+              body: CharacterOverview(character: character),
             )
+        ],
+        footerItems: [
+          PaneItem(
+            icon: const Icon(FluentIcons.process),
+            title: const Text('Profile'),
+            body: const ProfileOverview(),
+          ),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icarus_editor/widgets/character_list.dart';
+import 'package:icarus_editor/widgets/editor_navigation.dart';
 import 'bloc/characters_bloc.dart';
 
 Future main() async {
@@ -22,7 +22,7 @@ class Application extends StatelessWidget {
 }
 
 class _Application extends StatelessWidget {
-  const _Application({super.key});
+  const _Application();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _Application extends StatelessWidget {
         } else if (state is CharactersFailedToLoadState) {
           return _buildFailed(context, state);
         } else if (state is CharactersLoadedState) {
-          return CharacterList(characters: state.characters);
+          return EditorNavigation(characters: state.characters);
         }
 
         return const Center(child: Text('unknown state...'));
