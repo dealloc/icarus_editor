@@ -40,4 +40,14 @@ class IcarusSave {
     var rawProfile = json.decode(profileContent);
     profile = IcarusProfile(profile: rawProfile, save: this);
   }
+
+  Future saveCharacters() async {
+    var content = {
+      'Characters.json': [
+        for (var character in characters) character.serialize()
+      ]
+    };
+
+    await _charactersFile.writeAsString(json.encode(content));
+  }
 }
