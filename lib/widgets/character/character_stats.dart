@@ -11,17 +11,39 @@ class CharacterStats extends StatelessWidget {
     final keys = character.character.keys.toList();
     final values = character.character.values.toList();
 
-    return ListView.builder(
-      itemCount: character.character.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(keys[index]),
+    return ListView(
+      children: [
+        ListTile(
+          title: Text('Name'),
           subtitle: TextBox(
-            initialValue: values[index].toString(),
+            initialValue: character.name,
             readOnly: true,
           ),
-        );
-      },
+        ),
+        ListTile(
+          title: Text('XP'),
+          subtitle: TextBox(
+            initialValue: character.xp.toString(),
+            readOnly: true,
+          ),
+        ),
+        ListTile(
+          title: Text('XP Debt'),
+          subtitle: TextBox(
+            initialValue: character.xpDebt.toString(),
+            readOnly: true,
+          ),
+        ),
+        ListTile(
+          title: Text('Dead'),
+          subtitle: Checkbox(checked: character.dead, onChanged: (value) {}),
+        ),
+        ListTile(
+          title: Text('Abandoned'),
+          subtitle:
+              Checkbox(checked: character.abandoned, onChanged: (value) {}),
+        ),
+      ],
     );
   }
 }

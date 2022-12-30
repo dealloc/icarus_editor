@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:icarus_editor/services/folders.dart';
 import 'package:icarus_editor/services/icarus_character.dart';
+import 'package:icarus_editor/services/icarus_inventory.dart';
 import 'package:icarus_editor/services/icarus_profile.dart';
 
 const String _charactersKey = 'Characters.json';
@@ -11,12 +12,15 @@ class IcarusSave {
   final Directory directory;
   late File _charactersFile;
   late File _profileFile;
+  late File _inventoryFile;
   final List<IcarusCharacter> characters = List.empty(growable: true);
   late IcarusProfile profile;
+  late IcarusInventory inventory;
 
   IcarusSave({required this.directory}) {
     _charactersFile = getFileInIcarusSaveFolder(directory, 'Characters.json');
     _profileFile = getFileInIcarusSaveFolder(directory, 'Profile.json');
+    _inventoryFile = getFileInIcarusSaveFolder(directory, 'MetaInventory.json');
   }
 
   Future initialize() async {
@@ -26,6 +30,9 @@ class IcarusSave {
     }
     if (await _profileFile.exists() == false) {
       throw FileSystemException('Could not load profile', _profileFile.path);
+    }
+    if (await _inventoryFile.exists() == false) {
+      throw FileSystemException('Could not load profile', _inventoryFile.path);
     }
 
     var charactersContent = await _charactersFile.readAsString();
@@ -39,6 +46,10 @@ class IcarusSave {
     var profileContent = await _profileFile.readAsString();
     var rawProfile = json.decode(profileContent);
     profile = IcarusProfile(profile: rawProfile, save: this);
+
+    var inventoryContent = await _inventoryFile.readAsString();
+    var rawInventory = json.decode(inventoryContent);
+    inventory = IcarusInventory(inventory: rawInventory, save: this);
   }
 
   Future saveCharacters() async {
