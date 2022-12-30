@@ -22,18 +22,23 @@ class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
       emit(IcarusLoadedState(event.save));
     });
 
+    on<IcarusResetRequestedEvent>((event, emit) async {
+      emit(IcarusLoadingState());
+
+      try {
+        await _init();
+      } on Exception catch (error) {
+        emit(IcarusFailedToLoadState(error));
+      }
+    });
+
     on<IcarusSaveRequestedEvent>((event, emit) async {
       if (state is IcarusLoadedState) {
         IcarusSave save = (state as IcarusLoadedState).save;
         emit(IcarusLoadingState());
         await save.saveChanges();
 
-        try {
-          await _init();
-        } on Exception catch (error) {
-          emit(IcarusFailedToLoadState(error));
-        }
-
+        add(IcarusResetRequestedEvent());
         return;
       }
 

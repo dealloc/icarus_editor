@@ -29,7 +29,7 @@ class IcarusCharacter {
   }
 
   set xpDebt(int value) {
-    character['XP_Debt'];
+    character['XP_Debt'] = value;
   }
 
   bool get dead {

@@ -1,47 +1,72 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:icarus_editor/services/icarus_character.dart';
 
-class CharacterStats extends StatelessWidget {
+class CharacterStats extends StatefulWidget {
   final IcarusCharacter character;
 
   const CharacterStats({super.key, required this.character});
 
   @override
-  Widget build(BuildContext context) {
-    final keys = character.character.keys.toList();
-    final values = character.character.values.toList();
+  State<CharacterStats> createState() => _CharacterStatsState();
+}
 
+class _CharacterStatsState extends State<CharacterStats> {
+  @override
+  Widget build(BuildContext context) {
     return ListView(
       children: [
         ListTile(
           title: Text('Name'),
           subtitle: TextBox(
-            initialValue: character.name,
-            readOnly: true,
+            initialValue: widget.character.name,
+            onChanged: (value) {
+              widget.character.name = value;
+            },
           ),
         ),
         ListTile(
           title: Text('XP'),
           subtitle: TextBox(
-            initialValue: character.xp.toString(),
-            readOnly: true,
+            initialValue: widget.character.xp.toString(),
+            onChanged: (value) {
+              var number = int.tryParse(value);
+              if (number != null) {
+                widget.character.xp = number;
+              }
+            },
           ),
         ),
         ListTile(
-          title: Text('XP Debt'),
+          title: const Text('XP Debt'),
           subtitle: TextBox(
-            initialValue: character.xpDebt.toString(),
-            readOnly: true,
+            initialValue: widget.character.xpDebt.toString(),
+            onChanged: (value) {
+              var number = int.tryParse(value);
+              if (number != null) {
+                widget.character.xpDebt = number;
+              }
+            },
           ),
         ),
         ListTile(
-          title: Text('Dead'),
-          subtitle: Checkbox(checked: character.dead, onChanged: (value) {}),
+          title: const Text('Dead'),
+          subtitle: Checkbox(
+            checked: widget.character.dead,
+            onChanged: (value) {
+              widget.character.dead = value ?? false;
+              setState(() {});
+            },
+          ),
         ),
         ListTile(
-          title: Text('Abandoned'),
-          subtitle:
-              Checkbox(checked: character.abandoned, onChanged: (value) {}),
+          title: const Text('Abandoned'),
+          subtitle: Checkbox(
+            checked: widget.character.abandoned,
+            onChanged: (value) {
+              widget.character.abandoned = value ?? false;
+              setState(() {});
+            },
+          ),
         ),
       ],
     );

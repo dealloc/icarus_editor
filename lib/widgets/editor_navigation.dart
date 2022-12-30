@@ -66,6 +66,13 @@ class _EditorNavigationState extends State<EditorNavigation> {
               }
             },
           ),
+          PaneItemAction(
+            icon: const Icon(FluentIcons.reset),
+            title: const Text('Reset all changes'),
+            onTap: () {
+              context.read<IcarusBloc>().add(IcarusResetRequestedEvent());
+            },
+          ),
         ],
       ),
     );

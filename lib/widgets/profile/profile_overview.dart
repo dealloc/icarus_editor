@@ -15,15 +15,39 @@ class ProfileOverview extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('Currency'),
-              subtitle: Text('${profile.credits}'),
+              subtitle: TextBox(
+                initialValue: profile.credits.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.credits = number;
+                  }
+                },
+              ),
             ),
             ListTile(
               title: const Text('Exotics'),
-              subtitle: Text('${profile.exotics}'),
+              subtitle: TextBox(
+                initialValue: profile.exotics.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.exotics = number;
+                  }
+                },
+              ),
             ),
             ListTile(
               title: const Text('Refund tokens'),
-              subtitle: Text('${profile.refundTokens}'),
+              subtitle: TextBox(
+                initialValue: profile.refundTokens.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.refundTokens = number;
+                  }
+                },
+              ),
             ),
           ],
         ),

@@ -8,17 +8,31 @@ class InventoryOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var itemsWithDurability =
+        inventory.items.where((element) => element.hasDurability).toList();
+
     return ColoredBox(
       color: FluentTheme.of(context).scaffoldBackgroundColor,
       child: Center(
         child: ListView.builder(
-          itemCount: inventory.items.length,
+          itemCount: itemsWithDurability.length,
           itemBuilder: (context, index) {
-            var item = inventory.items[index];
+            var item = itemsWithDurability[index];
 
             return ListTile(
               title: Text(item.name),
-              subtitle: item.hasDurability ? Text('${item.durability}') : null,
+              subtitle: item.hasDurability
+                  ? TextBox(
+                      keyboardType: TextInputType.number,
+                      initialValue: item.durability.toString(),
+                      onChanged: (value) {
+                        var number = int.tryParse(value);
+                        if (number != null) {
+                          item.durability = number;
+                        }
+                      },
+                    )
+                  : null,
             );
           },
         ),

@@ -29,6 +29,10 @@ class IcarusInventoryItem {
     return item['ItemStaticData']['RowName'];
   }
 
+  set name(String value) {
+    item['ItemStaticData']['RowName'] = value;
+  }
+
   bool get hasDurability => _durabilityIndex != -1;
 
   int get durability {
@@ -38,6 +42,15 @@ class IcarusInventoryItem {
     }
 
     return item['ItemDynamicData'][_durabilityIndex]['Value'];
+  }
+
+  set durability(int value) {
+    if (hasDurability == false) {
+      throw const IcarusException(
+          'Cannot set durability of item without durability!');
+    }
+
+    item['ItemDynamicData'][_durabilityIndex]['Value'] = value;
   }
 
   int _getDynamicDataIndex(String key) {

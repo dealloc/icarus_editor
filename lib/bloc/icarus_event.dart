@@ -16,3 +16,5 @@ class IcarusFailedToLoadEvent extends IcarusEvent {
 }
 
 class IcarusSaveRequestedEvent extends IcarusEvent {}
+
+class IcarusResetRequestedEvent extends IcarusEvent {}
