@@ -14,3 +14,5 @@ class IcarusFailedToLoadEvent extends IcarusEvent {
 
   IcarusFailedToLoadEvent(this.exception);
 }
+
+class IcarusSaveRequestedEvent extends IcarusEvent {}

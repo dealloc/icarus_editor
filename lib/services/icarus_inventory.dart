@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
 
@@ -11,6 +13,8 @@ class IcarusInventory {
       for (var item in inventory['Items']) IcarusInventoryItem(item: item)
     ];
   }
+
+  String serialize() => json.encode(inventory);
 }
 
 class IcarusInventoryItem {

@@ -1,8 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
 import 'package:icarus_editor/widgets/inventory/inventory_overview.dart';
 import 'package:icarus_editor/widgets/profile/profile_overview.dart';
+import 'package:icarus_editor/widgets/save_dialog.dart';
 
+import '../bloc/icarus_bloc.dart';
 import 'character/character_overview.dart';
 
 class EditorNavigation extends StatefulWidget {
@@ -20,10 +23,10 @@ class _EditorNavigationState extends State<EditorNavigation> {
   @override
   Widget build(BuildContext context) {
     return NavigationView(
-      // appBar: const NavigationAppBar(
-      //   title: Text('Icarus Character editor'),
-      //   automaticallyImplyLeading: false,
-      // ),
+      appBar: const NavigationAppBar(
+        title: Text('Icarus Character editor'),
+        automaticallyImplyLeading: false,
+      ),
       pane: NavigationPane(
         selected: _activeCharacter,
         onChanged: (value) => setState(() => _activeCharacter = value),
@@ -37,6 +40,9 @@ class _EditorNavigationState extends State<EditorNavigation> {
             )
         ],
         footerItems: [
+          PaneItemHeader(
+            header: const Text('Global'),
+          ),
           PaneItem(
             icon: const Icon(FluentIcons.all_apps),
             title: const Text('Inventory'),
@@ -46,6 +52,19 @@ class _EditorNavigationState extends State<EditorNavigation> {
             icon: const Icon(FluentIcons.user_window),
             title: const Text('Profile'),
             body: ProfileOverview(profile: widget.save.profile),
+          ),
+          // Actions
+          PaneItemHeader(
+            header: const Text('Actions'),
+          ),
+          PaneItemAction(
+            icon: const Icon(FluentIcons.save),
+            title: const Text('Save all changes'),
+            onTap: () async {
+              if (await showSaveDialog(context)) {
+                context.read<IcarusBloc>().add(IcarusSaveRequestedEvent());
+              }
+            },
           ),
         ],
       ),

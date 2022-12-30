@@ -52,7 +52,13 @@ class IcarusSave {
     inventory = IcarusInventory(inventory: rawInventory, save: this);
   }
 
-  Future saveCharacters() async {
+  Future saveChanges() async {
+    await _saveCharacters();
+    await _saveProfile();
+    await _saveInventory();
+  }
+
+  Future _saveCharacters() async {
     var content = {
       'Characters.json': [
         for (var character in characters) character.serialize()
@@ -60,5 +66,17 @@ class IcarusSave {
     };
 
     await _charactersFile.writeAsString(json.encode(content));
+  }
+
+  Future _saveProfile() async {
+    var content = profile.serialize();
+
+    await _profileFile.writeAsString(content);
+  }
+
+  Future _saveInventory() async {
+    var content = inventory.serialize();
+
+    await _inventoryFile.writeAsString(content);
   }
 }

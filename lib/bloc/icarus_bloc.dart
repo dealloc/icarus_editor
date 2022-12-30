@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
 import 'package:meta/meta.dart';
 
@@ -19,6 +20,25 @@ class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
 
     on<IcarusLoadedEvent>((event, emit) {
       emit(IcarusLoadedState(event.save));
+    });
+
+    on<IcarusSaveRequestedEvent>((event, emit) async {
+      if (state is IcarusLoadedState) {
+        IcarusSave save = (state as IcarusLoadedState).save;
+        emit(IcarusLoadingState());
+        await save.saveChanges();
+
+        try {
+          await _init();
+        } on Exception catch (error) {
+          emit(IcarusFailedToLoadState(error));
+        }
+
+        return;
+      }
+
+      emit(IcarusFailedToLoadState(const IcarusException(
+          'Cannot save unless the application is ready')));
     });
   }
 
