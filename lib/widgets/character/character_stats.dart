@@ -16,7 +16,10 @@ class CharacterStats extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(keys[index]),
-          subtitle: TextBox(initialValue: values[index].toString()),
+          subtitle: TextBox(
+            initialValue: values[index].toString(),
+            readOnly: true,
+          ),
         );
       },
     );

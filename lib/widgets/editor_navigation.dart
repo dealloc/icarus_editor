@@ -1,13 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:icarus_editor/services/icarus_save.dart';
 import 'package:icarus_editor/widgets/profile/profile_overview.dart';
 
-import '../services/icarus_character.dart';
 import 'character/character_overview.dart';
 
 class EditorNavigation extends StatefulWidget {
-  final List<IcarusCharacter> characters;
+  final IcarusSave save;
 
-  const EditorNavigation({super.key, required this.characters});
+  const EditorNavigation({super.key, required this.save});
 
   @override
   State<EditorNavigation> createState() => _EditorNavigationState();
@@ -28,7 +28,7 @@ class _EditorNavigationState extends State<EditorNavigation> {
         onChanged: (value) => setState(() => _activeCharacter = value),
         displayMode: PaneDisplayMode.auto,
         items: [
-          for (var character in widget.characters)
+          for (var character in widget.save.characters)
             PaneItem(
               icon: const Icon(FluentIcons.accounts),
               title: Text('${character.name} (${character.xp} XP)'),
@@ -39,7 +39,7 @@ class _EditorNavigationState extends State<EditorNavigation> {
           PaneItem(
             icon: const Icon(FluentIcons.process),
             title: const Text('Profile'),
-            body: const ProfileOverview(),
+            body: ProfileOverview(profile: widget.save.profile),
           ),
         ],
       ),

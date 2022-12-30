@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:icarus_editor/bloc/icarus_bloc.dart';
 import 'package:icarus_editor/widgets/editor_navigation.dart';
-import 'bloc/characters_bloc.dart';
 
 Future main() async {
   runApp(const Application());
@@ -13,8 +13,11 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      home: BlocProvider<CharactersBloc>(
-        create: (context) => CharactersBloc(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
+      home: BlocProvider<IcarusBloc>(
+        create: (context) => IcarusBloc(),
         child: const _Application(),
       ),
     );
@@ -26,14 +29,14 @@ class _Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CharactersBloc, CharactersState>(
+    return BlocBuilder<IcarusBloc, IcarusState>(
       builder: (context, state) {
-        if (state is CharactersLoadingState) {
+        if (state is IcarusLoadingState) {
           return _buildLoading(context);
-        } else if (state is CharactersFailedToLoadState) {
+        } else if (state is IcarusFailedToLoadState) {
           return _buildFailed(context, state);
-        } else if (state is CharactersLoadedState) {
-          return EditorNavigation(characters: state.characters);
+        } else if (state is IcarusLoadedState) {
+          return EditorNavigation(save: state.save);
         }
 
         return const Center(child: Text('unknown state...'));
@@ -42,17 +45,17 @@ class _Application extends StatelessWidget {
   }
 
   Widget _buildLoading(BuildContext context) {
-    return const ColoredBox(
-      color: Color(0xFFFFFFFF),
-      child: Center(
+    return ColoredBox(
+      color: FluentTheme.of(context).scaffoldBackgroundColor,
+      child: const Center(
         child: ProgressRing(),
       ),
     );
   }
 
-  Widget _buildFailed(BuildContext context, CharactersFailedToLoadState state) {
+  Widget _buildFailed(BuildContext context, IcarusFailedToLoadState state) {
     return ColoredBox(
-      color: const Color(0xFFFFFFFF),
+      color: FluentTheme.of(context).scaffoldBackgroundColor,
       child: Center(
         child: InfoBar(
           title: const Text('Icarus failed to load'),

@@ -18,7 +18,7 @@ class _CharacterOverviewState extends State<CharacterOverview> {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: const Color(0xFFFFFFFF),
+      color: FluentTheme.of(context).scaffoldBackgroundColor,
       child: Center(
         child: TabView(
           currentIndex: activeTab,
