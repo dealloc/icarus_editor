@@ -114,6 +114,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  icarus_editor_core:
+    dependency: "direct main"
+    description:
+      path: "../icarus_editor_core"
+      relative: true
+    source: path
+    version: "0.0.1"
   intl:
     dependency: transitive
     description:
