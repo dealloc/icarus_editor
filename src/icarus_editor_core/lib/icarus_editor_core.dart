@@ -3,6 +3,7 @@
 /// More dartdocs go here.
 library icarus_editor_core;
 
-export 'src/icarus_editor_core_base.dart';
+export 'src/models/item_static.dart';
+export 'src/generated/generated.dart' show itemsStatic;
 
 // TODO: Export any libraries intended for clients of this package.

@@ -43,6 +43,8 @@ dependencies:
   path: ^1.8.2
   icarus_editor_core:
     path: ../icarus_editor_core
+  bloc: ^8.1.0
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
