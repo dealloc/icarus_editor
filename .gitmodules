@@ -1,0 +1,3 @@
+[submodule "src/UnrealPakTool"]
+	path = src/UnrealPakTool
+	url = https://github.com/allcoolthingsatoneplace/UnrealPakTool.git

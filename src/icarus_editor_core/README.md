@@ -1,0 +1,1 @@
+To update the Icarus JSON files run `Extract-Packs.ps1`

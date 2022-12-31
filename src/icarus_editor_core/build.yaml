@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      icarus_editor_core:json_generator:
+        enabled: true
+
+builders:
+  json_generator:
+    import: "package:icarus_editor_core/src/builders/json_dart_builder.dart"
+    builder_factories: ["getIcarusEditorGenerator"]
+    build_extensions: { ".json": ["icarus_editor.dart"] }
+    # auto_apply: dependents
+    build_to: source

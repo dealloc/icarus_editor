@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
+import 'package:icarus_editor_core/icarus_editor_core.dart';
 
 class IcarusInventory {
   final Map inventory;
@@ -20,20 +21,28 @@ class IcarusInventory {
 class IcarusInventoryItem {
   final Map item;
   late int _durabilityIndex;
+  ItemStaticEntry? _entry;
 
   IcarusInventoryItem({required this.item}) {
     _durabilityIndex = _getDynamicDataIndex('Durability');
+    if (itemsStatic.containsKey(item['ItemStaticData']['RowName'])) {
+      _entry = itemsStatic[item['ItemStaticData']['RowName']];
+    }
   }
 
-  String get name {
-    return item['ItemStaticData']['RowName'];
-  }
-
-  set name(String value) {
-    item['ItemStaticData']['RowName'] = value;
+  String get displayName {
+    return _entry?.displayName ?? item['ItemStaticData']['RowName'];
   }
 
   bool get hasDurability => _durabilityIndex != -1;
+
+  int get maxDurability {
+    return _entry?.durability ?? -1;
+  }
+
+  double get durabilityPercentage {
+    return (durability / maxDurability) * 100;
+  }
 
   int get durability {
     if (hasDurability == false) {
