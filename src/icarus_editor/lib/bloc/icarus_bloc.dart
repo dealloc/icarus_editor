@@ -11,7 +11,8 @@ part 'icarus_state.dart';
 class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
   IcarusBloc() : super(IcarusLoadingState()) {
     _init().onError<Exception>(
-      (error, stacktrace) => add(IcarusFailedToLoadEvent(error)),
+      (error, stacktrace) =>
+          add(IcarusFailedToLoadEvent(IcarusException(error.toString()))),
     );
 
     on<IcarusFailedToLoadEvent>((event, emit) {
@@ -28,7 +29,7 @@ class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
       try {
         await _init();
       } on Exception catch (error) {
-        emit(IcarusFailedToLoadState(error));
+        emit(IcarusFailedToLoadState(IcarusException(error.toString())));
       }
     });
 

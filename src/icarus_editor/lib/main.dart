@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icarus_editor/bloc/icarus_bloc.dart';
+import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/widgets/editor_navigation.dart';
 
 Future main() async {
@@ -60,7 +61,7 @@ class _Application extends StatelessWidget {
         child: InfoBar(
           title: const Text('Icarus failed to load'),
           severity: InfoBarSeverity.error,
-          content: Text(state.exception?.toString() ??
+          content: Text(state.exception?.cause ??
               'Failed to load Icarus character files'),
         ),
       ),

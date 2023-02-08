@@ -6,7 +6,7 @@ abstract class IcarusState {}
 class IcarusLoadingState extends IcarusState {}
 
 class IcarusFailedToLoadState extends IcarusState {
-  final Exception? exception;
+  final IcarusException? exception;
 
   IcarusFailedToLoadState(this.exception);
 }

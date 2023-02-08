@@ -10,7 +10,7 @@ class IcarusLoadedEvent extends IcarusEvent {
 }
 
 class IcarusFailedToLoadEvent extends IcarusEvent {
-  final Exception? exception;
+  final IcarusException? exception;
 
   IcarusFailedToLoadEvent(this.exception);
 }
