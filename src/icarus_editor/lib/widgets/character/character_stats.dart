@@ -17,7 +17,7 @@ class _CharacterStatsState extends State<CharacterStats> {
       children: [
         ListTile(
           title: Text('Name'),
-          subtitle: TextBox(
+          subtitle: TextFormBox(
             initialValue: widget.character.name,
             onChanged: (value) {
               widget.character.name = value;
@@ -26,7 +26,7 @@ class _CharacterStatsState extends State<CharacterStats> {
         ),
         ListTile(
           title: Text('XP'),
-          subtitle: TextBox(
+          subtitle: TextFormBox(
             initialValue: widget.character.xp.toString(),
             onChanged: (value) {
               var number = int.tryParse(value);
@@ -38,7 +38,7 @@ class _CharacterStatsState extends State<CharacterStats> {
         ),
         ListTile(
           title: const Text('XP Debt'),
-          subtitle: TextBox(
+          subtitle: TextFormBox(
             initialValue: widget.character.xpDebt.toString(),
             onChanged: (value) {
               var number = int.tryParse(value);

@@ -15,7 +15,7 @@ class ProfileOverview extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('Currency'),
-              subtitle: TextBox(
+              subtitle: TextFormBox(
                 initialValue: profile.credits.toString(),
                 onChanged: (value) {
                   var number = int.tryParse(value);
@@ -27,7 +27,7 @@ class ProfileOverview extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Exotics'),
-              subtitle: TextBox(
+              subtitle: TextFormBox(
                 initialValue: profile.exotics.toString(),
                 onChanged: (value) {
                   var number = int.tryParse(value);
@@ -39,7 +39,7 @@ class ProfileOverview extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Refund tokens'),
-              subtitle: TextBox(
+              subtitle: TextFormBox(
                 initialValue: profile.refundTokens.toString(),
                 onChanged: (value) {
                   var number = int.tryParse(value);

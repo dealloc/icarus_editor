@@ -106,7 +106,7 @@ const durables = {
     "Farmers_Shotgun": 6000,
     "Crashed_Ship": 100000,
     "Mission_Knife_Lion": 120000,
-    "Black_Wolf_Knife": 11500,
+    "Black_Wolf_Knife": 2500,
     "Target_Dummy": 50000,
     "Armor_Advanced_Cloth": 4500,
     "Armor_Advanced_Leather": 7000,
@@ -114,4 +114,5 @@ const durables = {
     "Shield_Wooden": 1000,
     "Platinum_Crossbow": 15000,
     "Titanium_Crossbow": 20000,
+    "Deployable_10000": 10000,
 };

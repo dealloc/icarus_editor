@@ -1,7 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icarus_editor/bloc/icarus_bloc.dart';
-import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/widgets/editor_navigation.dart';
 
 Future main() async {
@@ -14,8 +13,8 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FluentApp(
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: FluentThemeData.light(),
+      darkTheme: FluentThemeData.dark(),
       themeMode: ThemeMode.system,
       home: BlocProvider<IcarusBloc>(
         create: (context) => IcarusBloc(),
