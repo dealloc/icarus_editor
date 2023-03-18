@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
+import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 import '../services/folders.dart';
@@ -8,11 +12,23 @@ import '../services/folders.dart';
 part 'icarus_event.dart';
 part 'icarus_state.dart';
 
+final Logger logger = Logger(
+  filter: ProductionFilter(),
+  output: MultiOutput(
+    [
+      ConsoleOutput(),
+      FileOutput(file: File('log.txt')),
+    ],
+  ),
+);
+
 class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
   IcarusBloc() : super(IcarusLoadingState()) {
     _init().onError<Exception>(
-      (error, stacktrace) =>
-          add(IcarusFailedToLoadEvent(IcarusException(error.toString()))),
+      (error, stacktrace) {
+        logger.e(error);
+        add(IcarusFailedToLoadEvent(IcarusException(error.toString())));
+      },
     );
 
     on<IcarusFailedToLoadEvent>((event, emit) {
@@ -29,6 +45,7 @@ class IcarusBloc extends Bloc<IcarusEvent, IcarusState> {
       try {
         await _init();
       } on Exception catch (error) {
+        logger.e(error);
         emit(IcarusFailedToLoadState(IcarusException(error.toString())));
       }
     });
