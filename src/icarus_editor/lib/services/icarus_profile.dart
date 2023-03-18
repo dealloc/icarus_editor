@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:icarus_editor/exceptions/icarus_exception.dart';
 import 'package:icarus_editor/services/icarus_save.dart';
 
 class IcarusProfile {
@@ -43,6 +42,9 @@ class IcarusProfile {
       }
     }
 
-    throw IcarusException('Could not find meta resource $key');
+    var newIndex = profile['MetaResources'].length;
+    profile['MetaResources'].add({'MetaRow': '', 'Count': 0});
+
+    return newIndex;
   }
 }
