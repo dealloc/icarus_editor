@@ -13,6 +13,7 @@ class IcarusSave {
   late File _charactersFile;
   late File _profileFile;
   late File _inventoryFile;
+  final Encoding _encoding = const SystemEncoding();
   final List<IcarusCharacter> characters = List.empty(growable: true);
   late IcarusProfile profile;
   late IcarusInventory inventory;
@@ -35,7 +36,8 @@ class IcarusSave {
       throw FileSystemException('Could not load profile', _inventoryFile.path);
     }
 
-    var charactersContent = await _charactersFile.readAsString();
+    var charactersContent =
+        await _charactersFile.readAsString(encoding: _encoding);
     var rawCharacters = json.decode(charactersContent)[_charactersKey];
     for (var rawCharacter in rawCharacters) {
       var decoded = json.decode(rawCharacter);
@@ -43,11 +45,12 @@ class IcarusSave {
       characters.add(IcarusCharacter(character: decoded, save: this));
     }
 
-    var profileContent = await _profileFile.readAsString();
+    var profileContent = await _profileFile.readAsString(encoding: _encoding);
     var rawProfile = json.decode(profileContent);
     profile = IcarusProfile(profile: rawProfile, save: this);
 
-    var inventoryContent = await _inventoryFile.readAsString();
+    var inventoryContent =
+        await _inventoryFile.readAsString(encoding: _encoding);
     var rawInventory = json.decode(inventoryContent);
     inventory = IcarusInventory(inventory: rawInventory, save: this);
   }
@@ -65,18 +68,19 @@ class IcarusSave {
       ]
     };
 
-    await _charactersFile.writeAsString(json.encode(content));
+    await _charactersFile.writeAsString(json.encode(content),
+        encoding: _encoding);
   }
 
   Future _saveProfile() async {
     var content = profile.serialize();
 
-    await _profileFile.writeAsString(content);
+    await _profileFile.writeAsString(content, encoding: _encoding);
   }
 
   Future _saveInventory() async {
     var content = inventory.serialize();
 
-    await _inventoryFile.writeAsString(content);
+    await _inventoryFile.writeAsString(content, encoding: _encoding);
   }
 }
