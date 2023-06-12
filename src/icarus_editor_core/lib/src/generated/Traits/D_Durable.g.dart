@@ -115,4 +115,13 @@ const durables = {
     "Platinum_Crossbow": 15000,
     "Titanium_Crossbow": 20000,
     "Deployable_10000": 10000,
+    "Shield_Bone": 1500,
+    "Shield_Steel": 10000,
+    "Shield_CarbonFiber": 30000,
+    "Shield_Composite": 50000,
+    "Shield_Titanium": 20000,
+    "Shield_Platinum": 20000,
+    "Basic_Fishing_Rod": 2000,
+    "Wood_Fishing_Rod": 4000,
+    "Refined_Wood_Fishing_Rod": 8000,
 };
