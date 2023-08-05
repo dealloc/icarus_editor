@@ -16,7 +16,7 @@ class _CharacterStatsState extends State<CharacterStats> {
     return ListView(
       children: [
         ListTile(
-          title: Text('Name'),
+          title: const Text('Name'),
           subtitle: TextFormBox(
             initialValue: widget.character.name,
             onChanged: (value) {
@@ -25,7 +25,7 @@ class _CharacterStatsState extends State<CharacterStats> {
           ),
         ),
         ListTile(
-          title: Text('XP'),
+          title: const Text('XP'),
           subtitle: TextFormBox(
             initialValue: widget.character.xp.toString(),
             onChanged: (value) {
