@@ -9,8 +9,8 @@ jobs:
  build_windows:
   strategy:
     matrix:
-      os: [{runner: windows-2022, version: 11}, {runner: windows-2019, version: 10}]
-  name: Build ${{ matrix.os.version }}
+      os: [{runner: windows-2022, kind: windows, version: 11}, {runner: windows-2019, kind: windows, version: 10}]
+  name: Build ${{ matrix.os.kind }}${{ matrix.os.version }}
   runs-on: ${{ matrix.os.runner }}
   steps:
     - uses: actions/checkout@v3
@@ -27,9 +27,7 @@ jobs:
 
  create_release:
     needs: [build_windows]
-    strategy:
-      matrix:
-        os: [{runner: windows-2022, version: 11}, {runner: windows-2019, version: 10}]
+    name: Publish packages
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -38,10 +36,22 @@ jobs:
         uses: actions/download-artifact@v3.0.1
         with:
           path: .
-      - name: Create Windows ${{ matrix.os.version }} archive
+
+      - name: Create Windows 10 archive
         uses: thedoctor0/zip-release@main
         with:
           type: 'zip'
-          filename: '../windows-${{ matrix.os.version }}-x64.zip'
-          directory: 'icarus_editor_windows${{ matrix.os.version }}/'
+          filename: '../windows-10-x64.zip'
+          directory: 'icarus_editor_windows10/'
 
+      - name: Create Windows 11 archive
+        uses: thedoctor0/zip-release@main
+        with:
+          type: 'zip'
+          filename: '../windows-11-x64.zip'
+          directory: 'icarus_editor_windows11/'
+
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.zip,*.tar.gz"
