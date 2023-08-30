@@ -38,6 +38,18 @@ class ProfileOverview extends StatelessWidget {
               ),
             ),
             ListTile(
+              title: const Text('Red Exotics'),
+              subtitle: TextFormBox(
+                initialValue: profile.redExotics.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.redExotics = number;
+                  }
+                },
+              ),
+            ),
+            ListTile(
               title: const Text('Refund tokens'),
               subtitle: TextFormBox(
                 initialValue: profile.refundTokens.toString(),

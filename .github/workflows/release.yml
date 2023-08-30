@@ -10,7 +10,7 @@ jobs:
   strategy:
     matrix:
       os: [{runner: windows-2022, kind: windows, version: 11}, {runner: windows-2019, kind: windows, version: 10}]
-  name: Build ${{ matrix.os.kind }}${{ matrix.os.version }}
+  name: Build ${{ matrix.os.kind }} ${{ matrix.os.version }}
   runs-on: ${{ matrix.os.runner }}
   steps:
     - uses: actions/checkout@v3

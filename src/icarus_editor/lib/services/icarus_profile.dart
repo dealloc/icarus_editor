@@ -7,12 +7,14 @@ class IcarusProfile {
   final IcarusSave save;
   late int _creditsIndex;
   late int _exoticsIndex;
+  late int _redExoticsIndex;
   late int _refundsIndex;
 
   IcarusProfile({required this.profile, required this.save}) {
     _creditsIndex = _getMetaResourceIndex('Credits');
     _exoticsIndex = _getMetaResourceIndex('Exotic1');
     _refundsIndex = _getMetaResourceIndex('Refund');
+    _redExoticsIndex = _getMetaResourceIndex('Exotic_Red');
   }
 
   int get credits => profile['MetaResources'][_creditsIndex]['Count'];
@@ -25,6 +27,12 @@ class IcarusProfile {
 
   set exotics(int value) {
     profile['MetaResources'][_exoticsIndex]['Count'] = value;
+  }
+
+  int get redExotics => profile['MetaResources'][_redExoticsIndex]['Count'];
+
+  set redExotics(int value) {
+    profile['MetaResources'][_redExoticsIndex]['Count'] = value;
   }
 
   int get refundTokens => profile['MetaResources'][_refundsIndex]['Count'];
@@ -43,7 +51,7 @@ class IcarusProfile {
     }
 
     var newIndex = profile['MetaResources'].length;
-    profile['MetaResources'].add({'MetaRow': '', 'Count': 0});
+    profile['MetaResources'].add({'MetaRow': key, 'Count': 0});
 
     return newIndex;
   }
