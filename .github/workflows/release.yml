@@ -23,7 +23,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: icarus_editor_windows${{ matrix.os.version }}
-        path: ./src/icarus_editor/build/windows/runner/Release/
+        path: ./src/icarus_editor/build/windows/x64/runner/Release/
 
  create_release:
     needs: [build_windows]
