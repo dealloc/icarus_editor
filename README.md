@@ -19,7 +19,8 @@ you can do this by holding shift and right clicking the empty space in the folde
 ![powershell](./docs//powershell-open.png)
 and run the following command:
 ```powershell
-.\scripts\Extract-Packs.ps1
+cd src
+..\scripts\Extract-Packs.ps1
 ```
 This should open a popup asking to select a folder, here you need to select the root folder of your Icarus installation (under your steamapps etc):
 ![folder](./docs//select-folder.png)
