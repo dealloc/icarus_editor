@@ -61,6 +61,30 @@ class ProfileOverview extends StatelessWidget {
                 },
               ),
             ),
+            ListTile(
+              title: const Text('Biomass'),
+              subtitle: TextFormBox(
+                initialValue: profile.biomass.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.biomass = number;
+                  }
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('Exotic Uranium'),
+              subtitle: TextFormBox(
+                initialValue: profile.exoticUranium.toString(),
+                onChanged: (value) {
+                  var number = int.tryParse(value);
+                  if (number != null) {
+                    profile.exoticUranium = number;
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),

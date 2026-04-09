@@ -9,12 +9,16 @@ class IcarusProfile {
   late int _exoticsIndex;
   late int _redExoticsIndex;
   late int _refundsIndex;
+  late int _biomassIndex;
+  late int _exoticUraniumIndex;
 
   IcarusProfile({required this.profile, required this.save}) {
     _creditsIndex = _getMetaResourceIndex('Credits');
     _exoticsIndex = _getMetaResourceIndex('Exotic1');
     _refundsIndex = _getMetaResourceIndex('Refund');
     _redExoticsIndex = _getMetaResourceIndex('Exotic_Red');
+    _biomassIndex = _getMetaResourceIndex('Biomass');
+    _exoticUraniumIndex = _getMetaResourceIndex('Exotic_Uranium');
   }
 
   int get credits => profile['MetaResources'][_creditsIndex]['Count'];
@@ -39,6 +43,18 @@ class IcarusProfile {
 
   set refundTokens(int value) {
     profile['MetaResources'][_refundsIndex]['Count'] = value;
+  }
+
+  int get biomass => profile['MetaResources'][_biomassIndex]['Count'];
+
+  set biomass(int value) {
+    profile['MetaResources'][_biomassIndex]['Count'] = value;
+  }
+
+  int get exoticUranium => profile['MetaResources'][_exoticUraniumIndex]['Count'];
+
+  set exoticUranium(int value) {
+    profile['MetaResources'][_exoticUraniumIndex]['Count'] = value;
   }
 
   String serialize() => json.encode(profile);
