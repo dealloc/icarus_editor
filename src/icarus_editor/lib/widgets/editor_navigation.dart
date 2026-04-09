@@ -23,10 +23,6 @@ class _EditorNavigationState extends State<EditorNavigation> {
   @override
   Widget build(BuildContext context) {
     return NavigationView(
-      appBar: const NavigationAppBar(
-        title: Text('Icarus Character editor'),
-        automaticallyImplyLeading: false,
-      ),
       pane: NavigationPane(
         selected: _activeCharacter,
         onChanged: (value) => setState(() => _activeCharacter = value),
